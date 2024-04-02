@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-
+require('dotenv').config();
 // coonect to DB
-mongoose.connect("mongodb+srv://parasbharde:A55F3C6dZZQ4NGM3@coursecluster.i62yrtm.mongodb.net/course_selling_app")
+mongoose.connect(process.env.MONGODB_URI)
 .then(() => {
     console.log("Connected to DB")
 })
@@ -27,6 +27,14 @@ const userSchema = new mongoose.Schema({
 
 })
 
+const ContactSchema = new mongoose.Schema({
+    firstName: String,
+    lastName: String,
+    email: String,
+    phoneNumber: String,
+    message: String
+})
+
 const CourseSchema = new mongoose.Schema({
    title: String,
    description: String,
@@ -37,11 +45,13 @@ const CourseSchema = new mongoose.Schema({
 const Admin = mongoose.model("Admin", AdminSchema);
 const User = mongoose.model("User", userSchema);
 const Course = mongoose.model("Course", CourseSchema);
+const Contact = mongoose.model("Contact", ContactSchema);
 
 module.exports ={
     Admin,
     User,
-    Course
+    Course,
+Contact
 }
 
 
